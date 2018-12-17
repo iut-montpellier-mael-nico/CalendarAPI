@@ -14,6 +14,11 @@ app.get('/public', function (req, res) {
     res.send('Hello World Public')
 })
 
+app.post('/login', (req, res) => {
+    res.json({
+        jwt: '' // TODO
+    })
+})
 
 app.listen(PORT, function () {
     console.log('Example app listening on port ' + PORT)
