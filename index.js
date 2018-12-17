@@ -3,10 +3,14 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const bodyParser = require("body-parser");
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
+
+
 const tabUser = [
   { mail: "roger@gmail.com", password: "toto" },
   { mail: "nico@gmail.com", password: "titi" }
 ];
+
+
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
@@ -57,6 +61,11 @@ app.post("/login/", urlEncodedParser, (req, res) => {
   });
 });
 
+app.post("/register") {
+
+}
+
+app.get("/")
 app.listen(3000, () => {
   console.log("app running on port 3000");
 });
