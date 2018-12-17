@@ -6,8 +6,8 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 
 
 const tabUser = [
-  { mail: "roger@gmail.com", password: "toto" },
-  { mail: "nico@gmail.com", password: "titi" }
+  { id: 1, mail: "roger@gmail.com", password: "toto" },
+  { id: 2, mail: "nico@gmail.com", password: "titi" }
 ];
 
 
@@ -34,7 +34,7 @@ app.get(
   "/private",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send("Hello" + req.user.email);
+    res.send("Hello" + req.user.mail);
   }
 );
 
@@ -61,9 +61,9 @@ app.post("/login/", urlEncodedParser, (req, res) => {
   });
 });
 
-app.post("/register") {
-
-}
+app.post("/register", (req,res) =>{
+res.send("Je vais etre une page register");
+});
 
 app.get("/")
 app.listen(3000, () => {
