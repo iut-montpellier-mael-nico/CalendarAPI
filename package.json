@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/barman81/CalendarJs#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
   }
 }
