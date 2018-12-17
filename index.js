@@ -6,6 +6,15 @@ app.get('/', function (req, res) {
     res.send('Hello World!')
 })
 
+app.get('/private', function (req, res) {
+    res.send('Hello World Private !')
+})
+
+app.get('/public', function (req, res) {
+    res.send('Hello World Public')
+})
+
+
 app.listen(PORT, function () {
     console.log('Example app listening on port ' + PORT)
 })
