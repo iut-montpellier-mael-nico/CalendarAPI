@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const bodyParser = require("body-parser");
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
-
+const PORT = process.env.PORT || 5000
 
 const tabUser = [
   { id: 1, mail: "roger@gmail.com", password: "toto" },
@@ -26,19 +26,19 @@ passport.use(
   })
 );
 
-app.get("/public", (req, res) => {
+app.get('/public', (req, res) => {
   res.send("I am public folks!");
 });
 
 app.get(
-  "/private",
+  '/private',
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.send("Hello" + req.user.mail);
   }
 );
 
-app.post("/login/", urlEncodedParser, (req, res) => {
+app.post('/login/', urlEncodedParser, (req, res) => {
   const email = req.body.mail;
   const password = req.body.password;
 
@@ -61,14 +61,14 @@ app.post("/login/", urlEncodedParser, (req, res) => {
   });
 });
 
-app.post("/register", (req,res) =>{
+app.post('/register', (req,res) =>{
 res.send("Je vais etre une page register");
 });
 
-app.get("/", function (req, res) {
+app.get('/', function (req, res) {
     res.send('Hello World !')
 })
 
-app.listen(3000, () => {
-  console.log("app running on port 3000");
+app.listen(PORT, () => {
+  console.log("app running on port " + PORT);
 });
