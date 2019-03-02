@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 var user = require('./User');
 var event = require('./Event');
-
+const PORT = process.env.PORT || 5000
 
 const tabUser = [];
 
@@ -26,23 +26,23 @@ passport.use(
   })
 );
 
-app.get("/public", (req, res) => {
+app.get('/public', (req, res) => {
   res.send("afficher Calendrier");
 });
 
-app.get("/private",passport.authenticate("jwt", { session: false }),
+app.get('/private',passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.send("Hello" + req.user.email +" partie pour les personnes connecter");
   }
 );
 
-app.get("/private/mesEvents",passport.authenticate("jwt", { session: false }),
+app.get('/private/mesEvents',passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.send(monUser.getListEvent);
   }
 );
 
-app.get("/private/monEvent",passport.authenticate("jwt", { session: false }),
+app.get('/private/monEvent',passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const idEvent = req.body.idEvent;
     const title = req.body.title; 
@@ -56,7 +56,7 @@ app.get("/private/monEvent",passport.authenticate("jwt", { session: false }),
   }
 );
 
-app.get("/private/addEvent",passport.authenticate("jwt", { session: false }),
+app.get('/private/addEvent',passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const idEvent = req.body.idEvent;
     const title = req.body.title; 
@@ -66,11 +66,11 @@ app.get("/private/addEvent",passport.authenticate("jwt", { session: false }),
     const idUser = req.body.idUser;
     event1 = new event(idEvent,title,dateDebut,dateFin,description,idUser);
     monUser.addEvent(event1);
-    res.send("evenement ajouté");
+    res.send("evenement ajoutï¿½");
   }
 );
 
-app.post("/login", urlEncodedParser, (req, res) => {
+app.post('/login', urlEncodedParser, (req, res) => {
   const email = req.body.mail;
   const password = req.body.password;
 
@@ -93,7 +93,7 @@ app.post("/login", urlEncodedParser, (req, res) => {
   });
 });
 
-app.post("/register",urlEncodedParser,(req, res) => {
+app.post('/register',urlEncodedParser,(req, res) => {
     const id = req.body.idUser;
     const email = req.body.mail;
     const password = req.body.password;
@@ -102,7 +102,9 @@ app.post("/register",urlEncodedParser,(req, res) => {
     res.send("enregistrer");
 });
 
-app.get("/")
-app.listen(3000, () => {
-  console.log("app running on port 3000");
+app.get('/', function (req, res){
+    res.send('Hello World je suis une appli qui fonctionne !')
+})
+app.listen(PORT, () => {
+  console.log("app running on port " + PORT);
 });
