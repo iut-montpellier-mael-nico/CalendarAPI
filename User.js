@@ -1,5 +1,6 @@
-module.exports = class User {
 
+
+module.exports = class User {
 
     constructor(idUser, email , password) {
         this.idUser = idUser;
@@ -21,5 +22,13 @@ module.exports = class User {
         return lesEvents
     }
 
+     getUnEvent(event){
+        lesEvents.array.forEach(function(element){
+            if(element === event){
+                return event;
+            }
+        });
+        return false;
+    }
 
 }
