@@ -3,17 +3,18 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const bodyParser = require("body-parser");
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
-const PORT = process.env.PORT || 5000
+var user = require('./User');
+var event = require('./Event');
+const monUser = new user();
 
-const tabUser = [
-  { id: 1, mail: "roger@gmail.com", password: "toto" },
-  { id: 2, mail: "nico@gmail.com", password: "titi" }
-];
+
+const tabUser = [];
 
 
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
+
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: "monSecret"
@@ -26,19 +27,36 @@ passport.use(
   })
 );
 
-app.get('/public', (req, res) => {
-  res.send("I am public folks!");
+app.get("/public", (req, res) => {
+  res.send("afficher Calendrier");
 });
 
-app.get(
-  '/private',
-  passport.authenticate("jwt", { session: false }),
+app.get("/private",passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send("Hello" + req.user.mail);
+    res.send("Hello" + req.user.email +" partie pour les personnes connecter");
   }
 );
 
-app.post('/login/', urlEncodedParser, (req, res) => {
+app.get("/private/mesEvents",passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.send(monUser.getListEvent);
+  }
+);
+
+app.get("/private/addEvent",passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const idEvent = req.body.idEvent;
+    const title = req.body.title; 
+    const dateDebut = req.body.dateDebut;
+    const dateFin = req.body.dateFin;
+    const description = req.body.dateFin; 
+    const idUser = req.body.idUser;
+    event1 = new event(idEvent,title,dateDebut,dateFin,description,idUser);
+    monUser.addEvent(event1);
+  }
+);
+
+app.post("/login", urlEncodedParser, (req, res) => {
   const email = req.body.mail;
   const password = req.body.password;
 
@@ -50,7 +68,7 @@ app.post('/login/', urlEncodedParser, (req, res) => {
   const user = tabUser.find(user => user.mail === email);
 
   if (!user || user.password !== password) {
-    res.status(401).json({ error: "Le mot de passe est incorrect}" });
+    res.status(401).json({ error: "Le mot de passe est incorrect" });
     return;
   }
 
@@ -61,14 +79,12 @@ app.post('/login/', urlEncodedParser, (req, res) => {
   });
 });
 
-app.post('/register', (req,res) =>{
-res.send("Je vais etre une page register");
+app.post("/register",(req, res) => {
+monUser = new user(req.body.mail, req.body.password)
+tabUser.push(monUser);
 });
 
-app.get('/', function (req, res) {
-    res.send('Hello World !')
-})
-
-app.listen(PORT, () => {
-  console.log("app running on port " + PORT);
+app.get("/")
+app.listen(3000, () => {
+  console.log("app running on port 3000");
 });

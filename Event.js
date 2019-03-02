@@ -1,5 +1,5 @@
-class Event {
-
+module.exports = class Event {
+    
     constructor(idEvent, title, dateDebut, dateFin, description, idUser) {
         this.idEvent = idEvent;
         this.title = title;
@@ -8,4 +8,6 @@ class Event {
         this.description = description;
         this.idUser = idUser;
     }
+
+    
 }

@@ -1,6 +1,0 @@
-class ListEvents {
-
-    constructor(){
-
-    }
-}
