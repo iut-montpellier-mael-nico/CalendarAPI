@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 var user = require('./User');
 var event = require('./Event');
+const PORT = process.env.PORT ||5000
 const monUser = new user();
 
 
@@ -85,6 +86,6 @@ tabUser.push(monUser);
 });
 
 app.get("/")
-app.listen(3000, () => {
-  console.log("app running on port 3000");
+app.listen(PORT, () => {
+  console.log("app running on port " + PORT);
 });
