@@ -85,7 +85,9 @@ monUser = new user(req.body.mail, req.body.password)
 tabUser.push(monUser);
 });
 
-app.get("/")
+app.get("/", (req,res) {
+    res.send('Hello World je suis une appli qui fonctionne !')
+})
 app.listen(PORT, () => {
   console.log("app running on port " + PORT);
 });
