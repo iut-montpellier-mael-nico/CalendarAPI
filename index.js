@@ -1,6 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 const bodyParser = require("body-parser");
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 var user = require('./User');
@@ -58,6 +60,7 @@ app.get('/private/monEvent',passport.authenticate("jwt", { session: false }),
 
 app.get('/private/addEvent',passport.authenticate("jwt", { session: false }),
   (req, res) => {
+      console.log(req.body);
     const idEvent = req.body.idEvent;
     const title = req.body.title; 
     const dateDebut = req.body.dateDebut;
