@@ -47,20 +47,13 @@ app.get('/private/mesEvents',passport.authenticate("jwt", { session: false }),
 app.get('/private/monEvent',passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const idEvent = req.body.idEvent;
-    const title = req.body.title; 
-    const dateDebut = req.body.dateDebut;
-    const dateFin = req.body.dateFin;
-    const description = req.body.dateFin; 
-    const idUser = req.body.idUser;
-    monEvent = new event(idEvent,title,dateDebut,dateFin,description,idUser);
-    result = monUser.getUnEvent(monEvent);
+    result = monUser.getUnEvent(idEvent);
     res.send(result);
   }
 );
 
-app.get('/private/addEvent',passport.authenticate("jwt", { session: false }),
+app.get('/private/addEvent', urlEncodedParser ,passport.authenticate("jwt", { session: false }),
   (req, res) => {
-      console.log(req.body);
     const idEvent = req.body.idEvent;
     const title = req.body.title; 
     const dateDebut = req.body.dateDebut;
@@ -69,7 +62,15 @@ app.get('/private/addEvent',passport.authenticate("jwt", { session: false }),
     const idUser = req.body.idUser;
     event1 = new event(idEvent,title,dateDebut,dateFin,description,idUser);
     monUser.addEvent(event1);
-    res.send("evenement ajoutï¿½");
+    res.send("evenement ajouté");
+  }
+);
+
+app.get('/private/deleteEvent', urlEncodedParser ,passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const idEvent = req.body.idEvent;
+    monUser.deleteEvent(idEvent);
+    res.send("evenement supprimé");
   }
 );
 

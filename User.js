@@ -22,10 +22,19 @@ module.exports = class User {
         return lesEvents
     }
 
-     getUnEvent(event){
+     getUnEvent(idevent){
         lesEvents.array.forEach(function(element){
-            if(element === event){
-                return event;
+            if(element.idEvent === idevent){
+                return element;
+            }
+        });
+        return false;
+    }
+
+    deleteUnEvent(idevent){
+        lesEvents.array.forEach(function(element){
+            if(element.idEvent === idevent){
+                lesEvents.splice(lesEvents.indexOf(element),1);
             }
         });
         return false;
