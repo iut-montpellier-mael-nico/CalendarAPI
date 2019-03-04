@@ -34,7 +34,7 @@ app.get('/public', (req, res) => {
 
 app.get('/private',passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send("Hello" + req.user.email +" partie pour les personnes connecter");
+    res.send("Hello " + req.user.mail +" partie pour les personnes connectÃ© !!!");
   }
 );
 
@@ -62,7 +62,7 @@ app.get('/private/addEvent', urlEncodedParser ,passport.authenticate("jwt", { se
     const idUser = req.body.idUser;
     event1 = new event(idEvent,title,dateDebut,dateFin,description,idUser);
     monUser.addEvent(event1);
-    res.send("evenement ajouté");
+    res.send("evenement ajoutï¿½");
   }
 );
 
@@ -70,7 +70,7 @@ app.get('/private/deleteEvent', urlEncodedParser ,passport.authenticate("jwt", {
   (req, res) => {
     const idEvent = req.body.idEvent;
     monUser.deleteEvent(idEvent);
-    res.send("evenement supprimé");
+    res.send("evenement supprimï¿½");
   }
 );
 

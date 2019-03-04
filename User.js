@@ -1,12 +1,12 @@
 
-
+var event = require('./Event');
+var lesEvents = [];
 module.exports = class User {
 
     constructor(idUser, email , password) {
         this.idUser = idUser;
         this.mail = email;
         this.password = password;
-        var lesEvents = [];
     }
 
      getUser(mail){
