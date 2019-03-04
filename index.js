@@ -32,19 +32,19 @@ app.get('/public', (req, res) => {
   res.send("afficher Calendrier");
 });
 
-app.get('/private',passport.authenticate("jwt", { session: false }),
+app.post('/private',passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.send("Hello " + req.user.mail +" partie pour les personnes connecté !!!");
   }
 );
 
-app.get('/private/mesEvents',passport.authenticate("jwt", { session: false }),
+app.post('/private/mesEvents',passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send(monUser.getListEvent);
+    res.send(monUser.getListEvent());
   }
 );
 
-app.get('/private/monEvent',passport.authenticate("jwt", { session: false }),
+app.post('/private/monEvent',urlEncodedParser, passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const idEvent = req.body.idEvent;
     result = monUser.getUnEvent(idEvent);
@@ -52,7 +52,7 @@ app.get('/private/monEvent',passport.authenticate("jwt", { session: false }),
   }
 );
 
-app.get('/private/addEvent', urlEncodedParser ,passport.authenticate("jwt", { session: false }),
+app.post('/private/addEvent', urlEncodedParser ,passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const idEvent = req.body.idEvent;
     const title = req.body.title; 
@@ -66,10 +66,10 @@ app.get('/private/addEvent', urlEncodedParser ,passport.authenticate("jwt", { se
   }
 );
 
-app.get('/private/deleteEvent', urlEncodedParser ,passport.authenticate("jwt", { session: false }),
+app.post('/private/deleteEvent', urlEncodedParser ,passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const idEvent = req.body.idEvent;
-    monUser.deleteEvent(idEvent);
+    monUser.deleteUnEvent(idEvent);
     res.send("evenement supprim�");
   }
 );

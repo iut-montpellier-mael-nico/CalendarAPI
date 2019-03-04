@@ -3,38 +3,39 @@ var event = require('./Event');
 var lesEvents = [];
 module.exports = class User {
 
-    constructor(idUser, email , password) {
+    constructor(idUser, email, password) {
         this.idUser = idUser;
         this.mail = email;
         this.password = password;
     }
 
-     getUser(mail){
-        if(User.mail === mail)
-        return User;
+    getUser(mail) {
+        if (User.mail === mail)
+            return User;
     }
 
-     addEvent(event){
+    addEvent(event) {
         lesEvents.push(event);
     }
 
-     getListEvent(){
-        return lesEvents
+    getListEvent() {
+        return lesEvents;
     }
 
-     getUnEvent(idevent){
-        lesEvents.array.forEach(function(element){
-            if(element.idEvent === idevent){
-                return element;
+    getUnEvent(idevent) {
+        var monEvent = false;
+        lesEvents.forEach(function (element) {
+            if (element.idEvent === idevent) {
+                monEvent = element;
             }
         });
-        return false;
+        return monEvent;
     }
 
-    deleteUnEvent(idevent){
-        lesEvents.array.forEach(function(element){
-            if(element.idEvent === idevent){
-                lesEvents.splice(lesEvents.indexOf(element),1);
+    deleteUnEvent(idevent) {
+        lesEvents.forEach(function (element) {
+            if (element.idEvent === idevent) {
+                lesEvents.splice(lesEvents.indexOf(element), 1);
             }
         });
         return false;
