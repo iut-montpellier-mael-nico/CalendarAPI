@@ -34,7 +34,7 @@ app.get('/public', (req, res) => {
 
 app.post('/private',passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.send("Hello " + req.user.mail +" partie pour les personnes connecté !!!");
+    res.send("Hello " + monUser.mail +" partie pour les personnes connecté !!!");
   }
 );
 
