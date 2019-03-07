@@ -93,17 +93,19 @@ app.post('/login', urlEncodedParser, (req, res) => {
   }
 
   const userjwt = jwt.sign({ user: email }, "monSecret");
+  const idUser = tabUser.indexOf(user);
 
   res.json({
-    jwt: userjwt
+    jwt: userjwt,
+    idUtilisateur: idUser
   });
 });
 
 app.post('/register',urlEncodedParser,(req, res) => {
-    const id = req.body.idUser;
+    //const id = req.body.idUser;
     const email = req.body.mail;
     const password = req.body.password;
-    monUser = new user(id, email, password)
+    monUser = new user(email, password)
     tabUser.push(monUser);
     res.send("enregistrer");
 });
